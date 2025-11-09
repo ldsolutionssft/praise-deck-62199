@@ -1,7 +1,7 @@
 {
-  "name": "LouvorApp",
-  "short_name": "LouvorApp",
-  "description": "Gestão de ministério de louvor",
+  "name": "BandLy",
+  "short_name": "BandLy",
+  "description": "Gestão de banda e ministério de louvor",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

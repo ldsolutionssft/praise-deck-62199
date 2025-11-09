@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Header } from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,7 @@ const eventTypeColors = {
 };
 
 export default function Index() {
-  const { events, members } = useLocalStorage();
+  const { events, members, userName } = useLocalStorage();
   const navigate = useNavigate();
 
   const todayEvents = useMemo(() => {
@@ -64,12 +65,13 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <header className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-b border-border">
+      <Header userName={userName} />
+      <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-b border-border">
         <div className="max-w-screen-xl mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-1">LouvorApp</h1>
-              <p className="text-muted-foreground">Bem-vindo de volta! 🎵</p>
+              <h1 className="text-2xl font-bold mb-1">Olá, {userName}! 👋</h1>
+              <p className="text-muted-foreground">Bem-vindo de volta</p>
             </div>
             <Button size="lg" onClick={() => navigate("/events")} className="rounded-full">
               <Plus className="h-5 w-5 mr-2" />
@@ -98,7 +100,7 @@ export default function Index() {
             </div>
           </Card>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-6">
         {/* Today's Events */}

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Header } from "@/components/Header";
 import { Member, MemberType, MemberRole, MemberStatus } from "@/types";
 import { MemberCard } from "@/components/MemberCard";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 
 export default function Members() {
-  const { members, events, addMember, updateMember, deleteMember } = useLocalStorage();
+  const { members, events, userName, addMember, updateMember, deleteMember } = useLocalStorage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<Member | null>(null);
   const [formData, setFormData] = useState({
@@ -79,18 +80,13 @@ export default function Members() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <header className="bg-card border-b border-border sticky top-0 z-40">
-        <div className="max-w-screen-xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-2xl font-bold">Membros</h1>
-              <p className="text-sm text-muted-foreground">{members.length} membros cadastrados</p>
-            </div>
-            <Button onClick={() => { resetForm(); setIsDialogOpen(true); }}>
-              <Plus className="h-4 w-4 mr-2" />
-              Novo Membro
-            </Button>
-          </div>
+      <Header 
+        userName={userName}
+        title="Membros"
+        subtitle={`${members.length} membros cadastrados`}
+      />
+      <div className="max-w-screen-xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex gap-4">
             <div className="flex items-center gap-2 text-sm">
               <Guitar className="h-4 w-4 text-primary" />
@@ -101,8 +97,12 @@ export default function Members() {
               <span className="font-medium">{stats.leaders} líderes</span>
             </div>
           </div>
+          <Button onClick={() => { resetForm(); setIsDialogOpen(true); }}>
+            <Plus className="h-4 w-4 mr-2" />
+            Novo Membro
+          </Button>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-4">
         {members.length === 0 ? (

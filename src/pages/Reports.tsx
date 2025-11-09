@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Header } from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Calendar, Users, TrendingUp } from "lucide-react";
 
 export default function Reports() {
-  const { events, members } = useLocalStorage();
+  const { events, members, userName } = useLocalStorage();
 
   const stats = useMemo(() => {
     const now = new Date();
@@ -53,12 +54,11 @@ export default function Reports() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <header className="bg-card border-b border-border sticky top-0 z-40">
-        <div className="max-w-screen-xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold">Relatórios</h1>
-          <p className="text-sm text-muted-foreground">Estatísticas e análises</p>
-        </div>
-      </header>
+      <Header 
+        userName={userName}
+        title="Relatórios"
+        subtitle="Estatísticas e análises"
+      />
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-6">
         {/* Summary Cards */}

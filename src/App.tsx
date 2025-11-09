@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BottomNav } from "@/components/BottomNav";
+import { WelcomeScreen } from "@/components/WelcomeScreen";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import Index from "./pages/Index";
 import Events from "./pages/Events";
 import Members from "./pages/Members";
@@ -12,11 +14,19 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+function AppContent() {
+  const { userName, saveUserName, isLoaded } = useLocalStorage();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (!userName) {
+    return <WelcomeScreen onComplete={saveUserName} />;
+  }
+
+  return (
+    <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -27,6 +37,16 @@ const App = () => (
         </Routes>
         <BottomNav />
       </BrowserRouter>
+    </>
+  );
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <AppContent />
     </TooltipProvider>
   </QueryClientProvider>
 );

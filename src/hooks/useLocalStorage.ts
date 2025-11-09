@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { AppData, Event, Member } from "@/types";
 
-const STORAGE_KEY = "louvorapp-data";
+const STORAGE_KEY = "bandly-data";
+const USER_KEY = "bandly-user";
 
 const defaultData: AppData = {
   members: [],
@@ -10,6 +11,7 @@ const defaultData: AppData = {
 
 export function useLocalStorage() {
   const [data, setData] = useState<AppData>(defaultData);
+  const [userName, setUserName] = useState<string>("");
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -20,6 +22,10 @@ export function useLocalStorage() {
       } catch (error) {
         console.error("Error loading data:", error);
       }
+    }
+    const storedUser = localStorage.getItem(USER_KEY);
+    if (storedUser) {
+      setUserName(storedUser);
     }
     setIsLoaded(true);
   }, []);
@@ -70,15 +76,22 @@ export function useLocalStorage() {
     }));
   };
 
+  const saveUserName = (name: string) => {
+    setUserName(name);
+    localStorage.setItem(USER_KEY, name);
+  };
+
   return {
     members: data.members,
     events: data.events,
+    userName,
     addMember,
     updateMember,
     deleteMember,
     addEvent,
     updateEvent,
     deleteEvent,
+    saveUserName,
     isLoaded,
   };
 }

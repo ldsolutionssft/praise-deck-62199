@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Header } from "@/components/Header";
 import { Event, EventType, EventStatus } from "@/types";
 import { EventCard } from "@/components/EventCard";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 
 export default function Events() {
-  const { events, members, addEvent, updateEvent, deleteEvent } = useLocalStorage();
+  const { events, members, userName, addEvent, updateEvent, deleteEvent } = useLocalStorage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [formData, setFormData] = useState({
@@ -112,18 +113,17 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <header className="bg-card border-b border-border sticky top-0 z-40">
-        <div className="max-w-screen-xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">Eventos</h1>
-            <p className="text-sm text-muted-foreground">{events.length} eventos cadastrados</p>
-          </div>
-          <Button onClick={() => { resetForm(); setIsDialogOpen(true); }}>
-            <Plus className="h-4 w-4 mr-2" />
-            Novo Evento
-          </Button>
-        </div>
-      </header>
+      <Header 
+        userName={userName}
+        title="Eventos"
+        subtitle={`${events.length} eventos cadastrados`}
+      />
+      <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-end">
+        <Button onClick={() => { resetForm(); setIsDialogOpen(true); }}>
+          <Plus className="h-4 w-4 mr-2" />
+          Novo Evento
+        </Button>
+      </div>
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-4">
         {sortedEvents.length === 0 ? (
