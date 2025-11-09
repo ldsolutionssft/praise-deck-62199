@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Calendar, Users, TrendingUp } from "lucide-react";
 
-export default function Reports() {
+export default function Reports({ onEditName }: { onEditName: () => void }) {
   const { events, members, userName } = useLocalStorage();
 
   const stats = useMemo(() => {
@@ -58,6 +58,7 @@ export default function Reports() {
         userName={userName}
         title="Relatórios"
         subtitle="Estatísticas e análises"
+        onEditName={onEditName}
       />
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-6">

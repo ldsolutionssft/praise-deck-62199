@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { format } from "date-fns";
 
-export default function Events() {
+export default function Events({ onEditName }: { onEditName: () => void }) {
   const { events, members, userName, addEvent, updateEvent, deleteEvent } = useLocalStorage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -131,6 +131,7 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
             <Plus className="h-4 w-4" />
           </Button>
         }
+        onEditName={onEditName}
       />
 
       <main className="max-w-screen-xl mx-auto px-4 py-6 space-y-4">

@@ -17,7 +17,7 @@ const eventTypeColors = {
   Outros: "bg-event-other/20 text-event-other border-event-other/30",
 };
 
-export default function Index() {
+export default function Index({ onEditName }: { onEditName: () => void }) {
   const { events, members, userName } = useLocalStorage();
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <Header userName={userName} />
+      <Header userName={userName} onEditName={onEditName} />
       <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background border-b border-border">
         <div className="max-w-screen-xl mx-auto px-4 py-8">
           <div className="flex items-center justify-between mb-6">

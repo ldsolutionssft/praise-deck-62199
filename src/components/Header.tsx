@@ -1,4 +1,11 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Edit } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 interface HeaderProps {
@@ -6,9 +13,10 @@ interface HeaderProps {
   title?: string;
   subtitle?: string;
   action?: React.ReactNode;
+  onEditName?: () => void;
 }
 
-export function Header({ userName, title, subtitle, action }: HeaderProps) {
+export function Header({ userName, title, subtitle, action, onEditName }: HeaderProps) {
   const userInitials = userName
     .split(" ")
     .map((n) => n[0])
@@ -24,12 +32,24 @@ export function Header({ userName, title, subtitle, action }: HeaderProps) {
             <img src={logo} alt="BandLy Logo" className="h-8 w-auto" />
           </div>
           <div className="flex items-center gap-2">
-            <Avatar className="h-8 w-8">
-              <AvatarFallback className="bg-primary text-primary-foreground text-xs">
-                {userInitials}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-sm font-medium hidden sm:inline">{userName}</span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <Avatar className="h-8 w-8 cursor-pointer">
+                    <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                      {userInitials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm font-medium hidden sm:inline">{userName}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-background z-50">
+                <DropdownMenuItem onClick={onEditName}>
+                  <Edit className="h-4 w-4 mr-2" />
+                  Editar nome
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         {(title || subtitle) && (

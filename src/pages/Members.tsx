@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export default function Members() {
+export default function Members({ onEditName }: { onEditName: () => void }) {
   const { members, events, userName, addMember, updateMember, deleteMember } = useLocalStorage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingMember, setEditingMember] = useState<Member | null>(null);
@@ -84,6 +84,7 @@ export default function Members() {
         userName={userName}
         title="Membros"
         subtitle={`${members.length} membros cadastrados`}
+        onEditName={onEditName}
       />
       <div className="max-w-screen-xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-4">
