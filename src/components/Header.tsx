@@ -16,7 +16,7 @@ export function Header({ userName, title, subtitle }: HeaderProps) {
     .slice(0, 2);
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-40 backdrop-blur-sm bg-card/95">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-background/60 border-b border-border/30">
       <div className="max-w-screen-xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
