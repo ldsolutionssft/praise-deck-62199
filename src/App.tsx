@@ -16,6 +16,7 @@ import Index from "./pages/Index";
 import Events from "./pages/Events";
 import Members from "./pages/Members";
 import Reports from "./pages/Reports";
+import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ function AppContent() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/landing" element={<Landing />} />
           <Route path="/" element={<Index onEditName={handleEditName} />} />
           <Route path="/events" element={<Events onEditName={handleEditName} />} />
           <Route path="/members" element={<Members onEditName={handleEditName} />} />
