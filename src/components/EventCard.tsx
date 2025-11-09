@@ -2,7 +2,13 @@ import { Event, Member } from "@/types";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, Users, Music, Edit, Trash2, Share2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Calendar, MapPin, Users, Music, Edit, Trash2, Share2, MoreVertical, Copy } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -13,6 +19,7 @@ interface EventCardProps {
   onEdit: (event: Event) => void;
   onDelete: (id: string) => void;
   onShare: (event: Event) => void;
+  onDuplicate: (event: Event) => void;
 }
 
 const eventTypeColors = {
@@ -22,7 +29,7 @@ const eventTypeColors = {
   Outros: "bg-event-other/20 text-event-other border-event-other/30",
 };
 
-export function EventCard({ event, members, onEdit, onDelete, onShare }: EventCardProps) {
+export function EventCard({ event, members, onEdit, onDelete, onShare, onDuplicate }: EventCardProps) {
   const eventMembers = members.filter((m) => event.memberIds.includes(m.id));
   const eventDate = new Date(event.date);
 
@@ -40,17 +47,31 @@ export function EventCard({ event, members, onEdit, onDelete, onShare }: EventCa
           </div>
           <h3 className="font-semibold text-lg">{event.title}</h3>
         </div>
-        <div className="flex gap-1">
-          <Button size="icon" variant="ghost" onClick={() => onShare(event)}>
-            <Share2 className="h-4 w-4" />
-          </Button>
-          <Button size="icon" variant="ghost" onClick={() => onEdit(event)}>
-            <Edit className="h-4 w-4" />
-          </Button>
-          <Button size="icon" variant="ghost" onClick={() => onDelete(event.id)}>
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="ghost">
+              <MoreVertical className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48 bg-background z-50">
+            <DropdownMenuItem onClick={() => onEdit(event)}>
+              <Edit className="h-4 w-4 mr-2" />
+              Editar
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onDuplicate(event)}>
+              <Copy className="h-4 w-4 mr-2" />
+              Duplicar
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onShare(event)}>
+              <Share2 className="h-4 w-4 mr-2" />
+              Compartilhar
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => onDelete(event.id)} className="text-destructive">
+              <Trash2 className="h-4 w-4 mr-2" />
+              Excluir
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <div className="space-y-2 text-sm">

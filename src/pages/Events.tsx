@@ -111,6 +111,15 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
     }
   };
 
+  const handleDuplicate = (event: Event) => {
+    addEvent({
+      ...event,
+      id: crypto.randomUUID(),
+      title: `${event.title} (Cópia)`,
+    });
+    toast.success("Evento duplicado!");
+  };
+
   return (
     <div className="min-h-screen bg-background pb-20">
       <Header 
@@ -143,6 +152,7 @@ ${event.songs && event.songs.length > 0 ? `🎵 Músicas: ${event.songs.join(", 
               onEdit={handleEdit}
               onDelete={handleDelete}
               onShare={handleShare}
+              onDuplicate={handleDuplicate}
             />
           ))
         )}
