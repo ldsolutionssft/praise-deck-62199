@@ -29,7 +29,7 @@ export function Header({ userName, title, subtitle, action, onEditName }: Header
       <div className="max-w-screen-xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="BandLy Logo" className="h-8 w-auto" />
+            <img src={logo} alt="BandLy Logo" className="h-8 w-auto rounded-lg" />
           </div>
           <div className="flex items-center gap-2">
             <DropdownMenu>

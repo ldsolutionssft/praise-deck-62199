@@ -24,7 +24,7 @@ export function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
       <Card className="w-full max-w-md p-8">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center mb-4">
-            <img src={logo} alt="BandLy Logo" className="h-24 w-auto" />
+            <img src={logo} alt="BandLy Logo" className="h-24 w-auto rounded-xl" />
           </div>
           <h1 className="text-3xl font-bold mb-2">Bem-vindo ao BandLy</h1>
           <p className="text-muted-foreground">
